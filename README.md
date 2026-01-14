@@ -50,3 +50,5 @@ https://ollama.com
 Start the model:
 ```bash
 ollama run mistral
+
+last updated: 14/1/2026
