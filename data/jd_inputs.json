@@ -1,0 +1,22 @@
+{
+  "job_descriptions": [
+    {
+      "id": "jd_001",
+      "role_details": "Senior Backend Engineer, 5+ years, Python, Django, AWS, India",
+      "department": "Engineering",
+      "experience_level": "Senior",
+      "location": "India",
+      "created_by": "HR Team",
+      "status": "active"
+    },
+    {
+      "id": "jd_002",
+      "role_details": "Frontend Engineer, 3+ years, Angular, TypeScript, performance optimization",
+      "department": "Engineering",
+      "experience_level": "Mid",
+      "location": "Remote",
+      "created_by": "HR Team",
+      "status": "draft"
+    }
+  ]
+}

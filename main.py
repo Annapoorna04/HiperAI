@@ -21,3 +21,7 @@ def generate_jd(request: JDRequest):
 # {
 # ...   "role_details": "Senior Backend Engineer, 5+ years, Python, Django, AWS, India"
 # ... }
+# name of the role
+# experience
+# technologies
+# location
