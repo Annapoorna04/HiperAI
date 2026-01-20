@@ -1,4 +1,4 @@
 fastapi
 uvicorn
-langchain
-langchain-community
+requests
+pydantic

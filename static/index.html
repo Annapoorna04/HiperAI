@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ask Ollama</title>
+</head>
+<body>
+
+  <h1>Ask Ollama</h1>
+
+  <textarea id="prompt" rows="5" cols="60">
+hello, generate 2 questions for java interview
+  </textarea>
+
+  <br><br>
+
+  <button onclick="sendPrompt()">Send</button>
+
+  <h2>Response</h2>
+  <pre id="response"></pre>
+
+  <script>
+    async function sendPrompt() {
+      const prompt = document.getElementById("prompt").value;
+      const responseBox = document.getElementById("response");
+
+      responseBox.textContent = "Loading...";
+
+      console.log("Sending prompt:", prompt);
+
+      try {
+        const res = await fetch("http://127.0.0.1:8000/generate-jd", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            role_details: prompt
+          })
+        });
+
+        const data = await res.json();
+        responseBox.textContent = data.job_description || "No response";
+
+      } catch (err) {
+        console.error(err);
+        responseBox.textContent = "Error calling backend";
+      }
+    }
+  </script>
+
+</body>
+</html>
