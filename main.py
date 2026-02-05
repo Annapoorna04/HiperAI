@@ -1,21 +1,26 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from jd_generator import generate_job_description
-from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="Hiperbrains AI JD Maker")
+from jd_generator import generate_job_description
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class JDRequest(BaseModel):
     role_details: str
+
+@app.get("/")
+def health():
+    return {"status": "running"}
 
 @app.post("/generate-jd")
 def generate_jd(req: JDRequest):
     jd = generate_job_description(req.role_details)
     return {"job_description": jd}
-
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-@app.get("/")
-def home():
-    return FileResponse("static/index.html")

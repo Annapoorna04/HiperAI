@@ -1,41 +1,21 @@
 import requests
 
-OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
-MODEL_NAME = "mistral:latest"
-
+OLLAMA_URL = "http://localhost:11434/api/generate"
 
 def generate_job_description(role_details: str) -> str:
-    prompt = f"""
-You are an HR expert at Hiperbrains.
-
-Generate a professional job description with:
-- Role summary
-- Responsibilities
-- Required skills
-- Nice-to-have skills
-
-Role details:
-{role_details}
-"""
-
     payload = {
-        "model": MODEL_NAME,
-        "prompt": prompt,
+        "model": "mistral",
+        "prompt": role_details,
         "stream": False
     }
 
-    try:
-        print("Calling Ollama...")
-        response = requests.post(
-            OLLAMA_URL,
-            json=payload,
-            timeout=180
-        )
-        response.raise_for_status()
+    response = requests.post(
+        OLLAMA_URL,
+        json=payload,
+        timeout=300
+    )
 
-        data = response.json()
-        return data.get("response", "").strip()
+    print("STATUS:", response.status_code)
+    print("TEXT:", response.text)
 
-    except requests.exceptions.RequestException as e:
-        print("Ollama error:", e)
-        return "Error generating job description. Please try again."
+    return response.json()["response"]
